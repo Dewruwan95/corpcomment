@@ -25,6 +25,7 @@ export default function FeedbackItem({ feedbackItem }: FeedbackItemProps) {
         <TriangleUpIcon />
         <span>{upvoteCount}</span>
       </button>
+
       <div>
         <p>{feedbackItem.badgeLetter}</p>
       </div>
@@ -33,6 +34,7 @@ export default function FeedbackItem({ feedbackItem }: FeedbackItemProps) {
         <p>{feedbackItem.company}</p>
         <p>{feedbackItem.text}</p>
       </div>
+
       <p>{feedbackItem.daysAgo === 0 ? "NEW" : `${feedbackItem.daysAgo}d`}</p>
     </li>
   );

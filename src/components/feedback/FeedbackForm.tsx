@@ -6,36 +6,34 @@ type FeedbackFormProps = {
 };
 
 export default function FeedbackForm({ onAddToList }: FeedbackFormProps) {
-  const [feedbackText, setFeedbackText] = useState("");
+  const [text, setText] = useState("");
   const [showValidIndicator, setShowValidIndicator] = useState(false);
   const [showInvalidIndicator, setShowInvalidIndicator] = useState(false);
-
-  const charCount = MAX_CHARACTERS - feedbackText.length;
+  const charCount = MAX_CHARACTERS - text.length;
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = event.target.value;
     if (newText.length > MAX_CHARACTERS) {
       return;
     }
-    setFeedbackText(newText);
+    setText(newText);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (feedbackText.includes("#") && feedbackText.length >= 5) {
+
+    // basic validation
+    if (text.includes("#") && text.length >= 5) {
       setShowValidIndicator(true);
-      setTimeout(() => {
-        setShowValidIndicator(false);
-      }, 2000);
+      setTimeout(() => setShowValidIndicator(false), 2000);
     } else {
       setShowInvalidIndicator(true);
-      setTimeout(() => {
-        setShowInvalidIndicator(false);
-      }, 2000);
+      setTimeout(() => setShowInvalidIndicator(false), 2000);
       return;
     }
-    onAddToList(feedbackText);
-    setFeedbackText("");
+
+    onAddToList(text);
+    setText("");
   };
 
   return (
@@ -46,15 +44,17 @@ export default function FeedbackForm({ onAddToList }: FeedbackFormProps) {
       }`}
     >
       <textarea
-        value={feedbackText}
+        value={text}
         onChange={handleChange}
         id="feedback-textarea"
-        placeholder=""
+        placeholder="blabla"
         spellCheck={false}
       />
+
       <label htmlFor="feedback-textarea">
         Enter your feedback here, remember to #hashtag the company
       </label>
+
       <div>
         <p className="u-italic">{charCount}</p>
         <button>
